@@ -66,7 +66,7 @@ def main():
         if text_prompt:
             generated_image = generate_image(text_prompt)
             if generated_image == "unique_name_message":
-                st.error("The name is unique, we could not find an image that matches your search.")
+                st.error("We could not find an image that matches your search.")
             else:
                 st.image(f'./out/{generated_image}', caption='Generated Image', use_column_width=True)
                 st.success("Image generated successfully!")
