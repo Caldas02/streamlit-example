@@ -47,6 +47,9 @@ def generate_image(text_prompt):
     if not os.path.exists("./out"):
         os.makedirs("./out")
 
+    if "caldas" in text_prompt.lower():
+        return "unique_name_message"
+    
     image = data["artifacts"][0]
     with open(f'./out/txt2img_{image["seed"]}.png', "wb") as f:
         f.write(base64.b64decode(image["base64"]))
@@ -57,13 +60,16 @@ def main():
 
     st.write("This app generates images based on given text prompts.")
 
-    text_prompt = st.text_input("Enter text prompt")
+    text_prompt = st.text_input("Enter text prompt", "Type here...")
 
     if st.button("Generate Image"):
         if text_prompt:
             generated_image = generate_image(text_prompt)
-            st.image(f'./out/{generated_image}', caption='Generated Image', use_column_width=True)
-            st.success("Image generated successfully!")
+            if generated_image == "unique_name_message":
+                st.error("The name is unique, we could not find an image that matches your search.")
+            else:
+                st.image(f'./out/{generated_image}', caption='Generated Image', use_column_width=True)
+                st.success("Image generated successfully!")
         else:
             st.warning("Please enter a text prompt.")
 
