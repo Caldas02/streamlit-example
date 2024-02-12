@@ -60,7 +60,7 @@ def main():
 
     st.write("This app generates images based on given text prompts.")
 
-    text_prompt = st.text_input("Enter text prompt", "Type here...")
+    text_prompt = st.text_input("Enter text prompt")
 
     if st.button("Generate Image"):
         if text_prompt:
